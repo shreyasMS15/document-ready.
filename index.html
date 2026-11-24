@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Assemble, check, and export application PDFs on your device.">
+  <meta name="theme-color" content="#143c35">
+  <title>Document Ready</title>
+</head>
+<body>
+  <a class="skip" href="#workspace">Skip to workspace</a>
+  <header class="top"><div class="wrap top-inner">
+    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">✓</span> Document Ready</a>
+    <span class="privacy"><span aria-hidden="true"></span> Files stay on your device</span>
+  </div></header>
+  <main class="wrap" id="workspace">
+    <section class="intro" aria-labelledby="title">
+      <h1 id="title">Get your documents<br class="wide"> ready to submit.</h1>
+      <p>Put photos and PDFs in the right order, check the pages, and export one file that meets your upload limit.</p>
+    </section>
+    <div class="workspace">
+      <section class="card pages" aria-labelledby="pages-heading">
+        <div class="section-heading"><h2 id="pages-heading">Your pages</h2><span id="page-count" class="counter">0 pages</span></div>
+        <div id="drop" class="drop">
+          <span class="drop-mark" aria-hidden="true">↑</span>
+          <strong>Add PDFs or photos</strong>
+          <span>Drop files here, or choose them from your device.</span>
+          <button type="button" class="button outline" id="browse">Choose files</button>
+          <input id="files" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp" multiple hidden>
+        </div>
+        <div class="page-actions" id="page-actions" hidden>
+          <button type="button" class="text-button" id="undo" disabled>Undo</button>
+          <button type="button" class="text-button" id="clear">Clear all</button>
+        </div>
+        <ol id="page-list" aria-label="Pages in export order"></ol>
+      </section>
+      <section class="card settings" aria-labelledby="settings-heading">
+        <h2 id="settings-heading">Export settings</h2>
+        <label for="limit">Upload size limit</label>
+        <div class="size"><input id="limit" type="number" min="1" max="50000" step="1" inputmode="numeric" value="2000" aria-describedby="size-help"><span>KB</span></div>
+        <p class="help" id="size-help">Check the limit on the site where you’ll submit.</p>
+        <fieldset>
+          <legend>PDF output</legend>
+          <label class="choice"><input type="radio" name="mode" value="preserve" checked><span><strong>Keep page quality</strong><small>Keeps existing text and document detail.</small></span></label>
+          <label class="choice"><input type="radio" name="mode" value="compress"><span><strong>Fit upload limit</strong><small>Converts pages to images. Text selection and links can be lost.</small></span></label>
+        </fieldset>
+        <button class="button primary" type="button" id="prepare" disabled>Prepare PDF <span aria-hidden="true">→</span></button>
+        <div id="result" class="result" hidden></div>
+      </section>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </main>
+  <footer class="wrap footer"><span>Document Ready</span><a href="./licenses.html">Open-source licenses</a></footer>
+  <dialog id="preview" aria-labelledby="preview-title">
+    <div class="dialog-heading"><h2 id="preview-title">Page preview</h2><button class="text-button" id="close-preview" type="button">Close</button></div>
+    <div id="preview-content"></div>
+  </dialog>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

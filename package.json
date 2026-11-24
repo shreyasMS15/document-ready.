@@ -1,0 +1,31 @@
+{
+  "name": "document-ready",
+  "version": "0.1.0",
+  "description": "Prepare application documents privately in a browser.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test",
+    "predev": "node scripts/copy-render-assets.js",
+    "prebuild": "node scripts/copy-render-assets.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "5.4.624"
+  },
+  "devDependencies": {
+    "vite": "7.3.8"
+  },
+  "private": true,
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "overrides": {
+    "esbuild": "0.28.1"
+  }
+}
