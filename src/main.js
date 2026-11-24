@@ -171,13 +171,13 @@ async function showPreview(index, exported) {
     const image = document.createElement('img');
     const nav = document.createElement('div');
     nav.className = 'page-actions';
-    let previous;
-    let next;
+    const previous = makeButton('Previous', () => changePage(-1));
+    const next = makeButton('Next', () => changePage(1));
     const count = document.createElement('span');
 
     async function render() {
-      if (previous) previous.disabled = true;
-      if (next) next.disabled = true;
+      previous.disabled = true;
+      next.disabled = true;
       const rendered = pdf
         ? await renderPage(pdf, currentPage, 1250, 0.86)
         : await renderPhoto(entry.source.file, 1250, 0.86);
@@ -201,8 +201,6 @@ async function showPreview(index, exported) {
       render().catch(() => { content.textContent = 'Could not preview this page.'; });
     }
 
-    previous = makeButton('Previous', () => changePage(-1));
-    next = makeButton('Next', () => changePage(1));
     await render();
   } catch {
     if (preview.open && Number(preview.dataset.revision) === revision) content.textContent = 'Could not preview this page.';

@@ -4,14 +4,14 @@ Document Ready helps people prepare school, job, benefits, and other application
 
 ## Try the demo
 
-From the downloaded or cloned project folder, run these commands with Node.js 20.19+ or 22.12+:
+With Node.js 20.19+ or 22.12+ installed, run the following from the project folder.
 
 ```sh
 npm ci
 npm run dev -- --port 8000 --strictPort
 ```
 
-Open [http://localhost:8000](http://localhost:8000) on the computer running the commands. Add a PDF or a photo, set an upload limit, then select **Prepare PDF** to preview and download the result.
+Open [localhost:8000](http://localhost:8000) on the same computer.
 
 ## Prepare a document
 
@@ -20,7 +20,7 @@ Open [http://localhost:8000](http://localhost:8000) on the computer running the 
 3. Enter the size limit from the upload form. Choose whether to keep page quality or try compression.
 4. Check the measured size and preview the export before downloading it.
 
-The app uses decimal kilobytes (1 KB = 1,000 bytes). If none of the compression settings meet the cap, the app reports that the PDF is over the limit and shows the actual size. The output may remain above the limit.
+The app uses 1 KB = 1,000 bytes. If the export exceeds your limit, the app shows the actual size.
 
 ## Privacy and limitations
 

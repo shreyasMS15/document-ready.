@@ -26,16 +26,11 @@ function getCanvas(width, height) {
   return { canvas, context };
 }
 
-async function pack(canvas, width, height, quality) {
-  try {
-    const blob = await new Promise((resolve, reject) =>
-      canvas.toBlob((value) => value ? resolve(value) : reject(new Error('Could not render this page.')), 'image/jpeg', quality),
-    );
-    return { blob, bytes: new Uint8Array(await blob.arrayBuffer()), width, height };
-  } finally {
-    canvas.width = 0;
-    canvas.height = 0;
-  }
+async function encodeJpeg(canvas, width, height, quality) {
+  const blob = await new Promise((resolve, reject) =>
+    canvas.toBlob((value) => value ? resolve(value) : reject(new Error('Could not render this page.')), 'image/jpeg', quality),
+  );
+  return { blob, bytes: new Uint8Array(await blob.arrayBuffer()), width, height };
 }
 
 export async function renderPage(pdf, index, edge, quality) {
@@ -45,7 +40,7 @@ export async function renderPage(pdf, index, edge, quality) {
   const { canvas, context } = getCanvas(viewport.width, viewport.height);
   try {
     await page.render({ canvas, canvasContext: context, viewport }).promise;
-    return await pack(canvas, natural.width, natural.height, quality);
+    return await encodeJpeg(canvas, natural.width, natural.height, quality);
   } finally {
     page.cleanup();
     canvas.width = 0;
@@ -55,13 +50,19 @@ export async function renderPage(pdf, index, edge, quality) {
 
 export async function renderPhoto(file, edge, quality) {
   const image = await createImageBitmap(file);
+  let canvas;
   try {
     if (!image.width || !image.height) throw new Error('This image has no pixels.');
     const dimensions = Math.min(1, edge / Math.max(image.width, image.height));
-    const { canvas, context } = getCanvas(image.width * dimensions, image.height * dimensions);
+    const { context } = getCanvas(image.width * dimensions, image.height * dimensions);
+    canvas = context.canvas;
     context.drawImage(image, 0, 0, canvas.width, canvas.height);
-    return await pack(canvas, image.width, image.height, quality);
+    return await encodeJpeg(canvas, image.width, image.height, quality);
   } finally {
     image.close();
+    if (canvas) {
+      canvas.width = 0;
+      canvas.height = 0;
+    }
   }
 }
