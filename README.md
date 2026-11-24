@@ -2,6 +2,17 @@
 
 Document Ready helps people prepare school, job, benefits, and other application documents when an upload form expects one PDF with a strict size limit. It runs in a browser and processes inputs locally.
 
+## Try the demo
+
+From the downloaded or cloned project folder, run these commands with Node.js 20.19+ or 22.12+:
+
+```sh
+npm ci
+npm run dev -- --port 8000 --strictPort
+```
+
+Open [http://localhost:8000](http://localhost:8000) on the computer running the commands. Add a PDF or a photo, set an upload limit, then select **Prepare PDF** to preview and download the result.
+
 ## Prepare a document
 
 1. Add PDFs or photos from a phone or computer.
@@ -19,14 +30,7 @@ The app uses decimal kilobytes (1 KB = 1,000 bytes). If none of the compression 
 - Compression can flatten text and links into page images and make small print harder to read. It does not add OCR. Review the exported pages before submitting.
 - Document Ready checks size. The receiving service determines whether a file meets its other requirements.
 
-## Run from source
-
-Use Node.js 20.19+ or 22.12+.
-
-```sh
-npm ci
-npm run dev
-```
+## Build and test
 
 Run `npm test` for the export logic tests. Run `npm run build` to produce a static site in `dist/`. Run `npm run preview` to test that build locally. A static host can serve `dist/` without a backend.
 
